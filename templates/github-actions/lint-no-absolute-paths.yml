@@ -1,0 +1,33 @@
+name: Lint - No Absolute Paths
+
+# このワークフローは sosuke-page-dev-os から各 consumer repo にコピーして使う。
+# 元: https://github.com/sosuke1010/sosuke-page-dev-os/tree/main/templates/github-actions/lint-no-absolute-paths.yml
+# 役割: /Users/<user>/Development/... のハードコードを PR / push のたびに検知する (L4 enforcement)。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout consumer repo
+        uses: actions/checkout@v4
+
+      - name: Checkout sosuke-page-dev-os
+        uses: actions/checkout@v4
+        with:
+          repository: sosuke1010/sosuke-page-dev-os
+          path: .sosuke-page-dev-os
+          ref: main
+
+      - name: Ensure ripgrep is available
+        run: |
+          if ! command -v rg >/dev/null 2>&1; then
+            sudo apt-get update && sudo apt-get install -y ripgrep
+          fi
+
+      - name: Run lint
+        run: bash .sosuke-page-dev-os/scripts/lint-no-absolute-paths.sh "$GITHUB_WORKSPACE"
