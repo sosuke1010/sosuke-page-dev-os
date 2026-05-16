@@ -49,6 +49,7 @@ RG_ARGS=(
   --glob '!**/venv/**'
   --glob '!**/coverage/**'
   --glob '!**/.cursor/plans/**'
+  --glob '!**/docs/postmortem/**'
   --glob '!**/.env.local'
   --glob '!**/.env'
 )

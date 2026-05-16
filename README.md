@@ -34,7 +34,8 @@ bash scripts/lint-no-absolute-paths.sh
 bash scripts/lint-no-absolute-paths.sh /path/to/repo
 ```
 
-例外を出したい場合は、対象リポの root に `.lint-no-absolute-paths.ignore` を置く（`.gitignore` と同じ glob 構文）。
+Postmortem は事故当時のパスを事実として保存する監査記録なので、`docs/postmortem/**` は標準で除外する。
+それ以外で例外を出したい場合は、対象リポの root に `.lint-no-absolute-paths.ignore` を置く（`.gitignore` と同じ glob 構文）。
 
 ### `templates/github-actions/lint-no-absolute-paths.yml`
 
